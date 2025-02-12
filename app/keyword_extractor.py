@@ -95,7 +95,17 @@ def load_keywords_from_github(url):
 def process_keywords_to_dict(df, team_type):
     keyword_dict = {}
     for index, row in df.iterrows():
-        indicator = row['SFDR Indicator'] if team_type == 'sfdr' else row['Asset/Report Type']
+        if team_type == 'sfdr':
+            indicator = row['SFDR Indicator']  
+        elif team_type == 'physical assets': 
+            indicator = row['Asset/Report Type']
+        elif team_type == 'Company data': 
+            indicator = row['Granular Indicator']
+        elif team_type == 'ENS Diversity': 
+            indicator = row['Div_Indicators'] 
+        elif team_type == 'Governance annual update': 
+            indicator = row['CG- Indicator']
+            
         datapoint_name = row['Datapoint Name']
         keywords = row['Keywords'].split(',')
         keywords = [keyword.strip() for keyword in keywords]
@@ -164,30 +174,50 @@ def run():
     sfdr_file_url = "https://raw.github.com/Dheena1-coder/PdfAnalyzer/master/sfdr_file.xlsx"  # Replace with actual SFDR Excel file URL
     asset_file_url = "https://raw.github.com/Dheena1-coder/PdfAnalyzer/master/asset_file.xlsx"  # Replace with actual Asset Excel file URL
     gowtham_file_url = "https://raw.github.com/Dheena1-coder/key_or_query/main/app/gowtham_keywords.xlsx"
-    diversity_file_url = "https://raw.github.com/Dheena1-coder/key_or_query/main/app/ 
-    surya_file_url = "https://raw.github.com/Dheena1-coder/key_or_query/main/app/
+    diversity_file_url = "https://raw.github.com/Dheena1-coder/key_or_query/main/app/Diversity_Keywords.xlsx" 
+    surya_file_url = "https://raw.github.com/Dheena1-coder/key_or_query/main/app/gowtham_keywords.xlsx"
 
     # Load and process the keyword dictionaries
     sfdr_df = load_keywords_from_github(sfdr_file_url)
     asset_df = load_keywords_from_github(asset_file_url)
+    gowtham_df = load_keywords_from_github(gowtham_file_url)
+    diversity_df = load_keywords_from_github(diversity_file_url)
+    surya_df = load_keywords_from_github(surya_file_url)
+
+    
 
     sfdr_keywords_dict = process_keywords_to_dict(sfdr_df, 'sfdr')
     asset_keywords_dict = process_keywords_to_dict(asset_df, 'assets')
+    gowtham_keywords_dict = process_keywords_to_dict(gowtham_df,'Granular segments')
+    diversity_keywords_dict = process_keywords_to_dict(diversity_df,'Diversity')
+    surya_keywords_dict = process_keywords_to_dict(surya_df,'Annual update')
 
     # Create dropdown for team selection
-    team_type = st.selectbox("Select Team", ["sfdr", "physical assets"])
+    team_type = st.selectbox("Select Team", ["sfdr", "physical assets",'Company data','ENS Diversity','Governance annual update'])
 
     # Display appropriate keyword dictionary based on team selection
     if team_type == "sfdr":
         indicators = list(sfdr_keywords_dict.keys())
-    else:
+    elif team_type == "physical assets":
         indicators = list(asset_keywords_dict.keys())
+    elif team_type == "Company data":
+        indicators = list(gowtham_keywords_dict.keys())
+    elif team_type == "ENS Diversity":    
+        indicators = list(diversity_keywords_dict.keys())
+    elif team_type == "Governance annual update":
+        indicators = list(surya_keywords_dict.keys())  
     
     indicator = st.selectbox("Select Indicator", indicators)
     if team_type == "sfdr":
         datapoint_names = list(sfdr_keywords_dict[indicator].keys())
-    else:
+    elif team_type == "physical assets":
         datapoint_names = list(asset_keywords_dict[indicator].keys())
+    elif team_type == "Company data":
+        datapoint_names = list(gowtham_keywords_dict[indicator].keys())
+    elif team_type == "ENS Diversity":    
+        datapoint_names = list(diversity_keywords_dict[indicator].keys())
+    elif team_type == "Governance annual update":
+        datapoint_names = list(surya_keywords_dict[indicator].keys())  
     
     datapoint_name = st.multiselect("Select Datapoint Names", datapoint_names)
     
