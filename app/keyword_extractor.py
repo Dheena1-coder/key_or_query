@@ -173,9 +173,9 @@ def run():
     # URLs of the GitHub Excel files (update with actual raw GitHub links)
     sfdr_file_url = "https://raw.github.com/Dheena1-coder/PdfAnalyzer/master/sfdr_file.xlsx"  # Replace with actual SFDR Excel file URL
     asset_file_url = "https://raw.github.com/Dheena1-coder/PdfAnalyzer/master/asset_file.xlsx"  # Replace with actual Asset Excel file URL
-    gowtham_file_url = "https://github.com/Dheena1-coder/key_or_query/main/gowtham_keywords.xlsx"
-    diversity_file_url = "https://github.com/Dheena1-coder/key_or_query/main/Diversity_Keywords.xlsx" 
-    surya_file_url = "https://github.com/Dheena1-coder/key_or_query/main/Data point with keywords_Surya V (1).xlsx"
+    gowtham_file_url = "https://raw.githubusercontent.com/Dheena1-coder/key_or_query/main/gowtham_keywords.xlsx"
+    diversity_file_url = "https://raw.githubusercontent.com/Dheena1-coder/key_or_query/main/Diversity_Keywords.xlsx" 
+    surya_file_url = "https://raw.githubusercontent.com/Dheena1-coder/key_or_query/main/Data point with keywords_Surya V (1).xlsx"
 
     # Load and process the keyword dictionaries
     sfdr_df = load_keywords_from_github(sfdr_file_url)
