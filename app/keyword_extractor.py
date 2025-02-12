@@ -206,8 +206,13 @@ def run():
         indicators = list(diversity_keywords_dict.keys())
     elif team_type == "Governance annual update":
         indicators = list(surya_keywords_dict.keys())  
-    
-    indicator = st.selectbox("Select Indicator", indicators)
+    else:
+        indicators = []
+    if indicators:
+        indicator = st.selectbox("Select Indicator", indicators)
+    else:
+        indicator = None
+        
     if team_type == "sfdr":
         datapoint_names = list(sfdr_keywords_dict[indicator].keys())
     elif team_type == "physical assets":
@@ -217,7 +222,10 @@ def run():
     elif team_type == "ENS Diversity":    
         datapoint_names = list(diversity_keywords_dict[indicator].keys())
     elif team_type == "Governance annual update":
-        datapoint_names = list(surya_keywords_dict[indicator].keys())  
+        datapoint_names = list(surya_keywords_dict[indicator].keys())
+    else:
+        datapoint_names = []
+        
     
     datapoint_name = st.multiselect("Select Datapoint Names", datapoint_names)
     
