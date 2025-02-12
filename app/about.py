@@ -23,8 +23,10 @@ def run():
         4. **Results**: The relevant keywords and surrounding sentences are displayed in an easy-to-read format. Page images with highlighted keywords are also shown for better visualization.
 
         **Key Features**:
-        - Extracts keywords from text-based PDFs.
+        - Extracts keywords context from text/image-based PDFs.
+        - Handles multilingual PDFs.
         - Displays the extracted sentences with context.
+        - Allows user to translate the other languages context to english for more information.
         - Highlights keywords directly on the PDF pages.
         """)
 
@@ -38,11 +40,11 @@ def run():
         1. **Upload PDF**: Similar to the Keyword-Based Extractor, users upload the PDF.
         2. **Define Query**: Users provide specific search queries (e.g., sentences or exact phrases).
         3. **Extract Results**: The extractor searches for the query matches within the document based on sentence similiarity.
-        4. **Display Results**: The results of the query are displayed with the matching text and highlighted locations in the document, similar to how keyword extraction works.
+        4. **Display Results**: The results of the query gives top 5 sentence similiarity results displayed with the matching text and highlighted locations in the document, similar to how keyword extraction works.
         
         **Key Features**:
         - Enables complex pattern-based extractions using user-defined queries.
-        - Allows the use of regular expressions for more advanced queries.
+        - Allows the user to gives a sentences  for a similiarity based searches.
         - Supports extraction of both text-based and image-based PDF content.
         """)
 
