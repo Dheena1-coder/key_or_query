@@ -95,6 +95,7 @@ def load_keywords_from_github(url):
 def process_keywords_to_dict(df, team_type):
     keyword_dict = {}
     for index, row in df.iterrows():
+        indicator = None
         if team_type == 'sfdr':
             indicator = row['SFDR Indicator']  
         elif team_type == 'physical assets': 
