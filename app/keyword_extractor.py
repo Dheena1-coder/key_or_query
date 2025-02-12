@@ -105,7 +105,9 @@ def process_keywords_to_dict(df, team_type):
             indicator = row['Div_Indicators'] 
         elif team_type == 'Governance annual update': 
             indicator = row['CG- Indicator']
-            
+        # Check if the indicator is valid (not None or empty)
+        if not indicator:
+            continue  # Skip this row if indicator is invalid            
         datapoint_name = row['Datapoint Name']
         keywords = row['Keywords'].split(',')
         keywords = [keyword.strip() for keyword in keywords]
