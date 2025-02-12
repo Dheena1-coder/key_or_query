@@ -4,10 +4,13 @@ import streamlit as st
 st.set_page_config(page_title="Extractor", page_icon=":material/edit:")
 
 # Sidebar for navigation
-page = st.sidebar.selectbox("Select a page", ["Keyword Based Extractor", "Query Based Extractor"])
+page = st.sidebar.selectbox("Select a page", ["About","Keyword Based Extractor", "Query Based Extractor"])
 
 # Conditional logic for different pages
-if page == "Keyword Based Extractor":
+if page == "About":
+    import about
+    about.run()
+elif page == "Keyword Based Extractor":
     st.title("Keyword Based Extractor")
     # Import and run the PDF extraction page
     import keyword_extractor
