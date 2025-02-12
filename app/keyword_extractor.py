@@ -215,7 +215,10 @@ def run():
         indicator = st.selectbox("Select Indicator", indicators)
     else:
         indicator = None
-        
+    if indicator is None:
+        st.warning("Please select a valid indicator.")
+        return
+
     if team_type == "sfdr":
         datapoint_names = list(sfdr_keywords_dict[indicator].keys())
     elif team_type == "physical assets":
