@@ -1,7 +1,7 @@
 import streamlit as st
 
 # About Page with Keyword and Query Extractor workflow
-def run_about_page():
+def run():
     # Set the title for the about page
     st.title("📄 About the Keyword-Based Extractor and Query-Based Extractor")
 
@@ -59,4 +59,4 @@ def run_about_page():
     <p>We are happy to assist you!</p>
     """, unsafe_allow_html=True)
 if __name__ == "__main__":
-    run_about_page()
+    run()
