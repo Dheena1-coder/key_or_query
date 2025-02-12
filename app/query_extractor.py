@@ -126,17 +126,19 @@ def calculate_keyword_statistics(text_chunks, selected_keywords):
     for keyword in selected_keywords:
         keyword_stats[keyword] = {
             'occurrences': 0,
-            'pages': set()
+            'pages': set()  # Set to avoid duplicate page numbers
         }
     
     # Count occurrences of keywords in the text chunks
     for sentence, page_number, _ in text_chunks:
         for keyword in selected_keywords:
-            if keyword.lower() in sentence.lower():
-                keyword_stats[keyword]['occurrences'] += 1
-                keyword_stats[keyword]['pages'].add(page_number)
+            occurrences_in_sentence = sentence.lower().count(keyword.lower())
+            if occurrences_in_sentence > 0:
+                keyword_stats[keyword]['occurrences'] += occurrences_in_sentence
+                keyword_stats[keyword]['pages'].add(page_number)  # Track the page number where the keyword appears
     
     return keyword_stats
+
 
 def run():
     # Streamlit UI components
