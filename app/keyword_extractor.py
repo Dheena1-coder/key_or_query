@@ -130,27 +130,30 @@ def process_keywords_to_dict(df, team_type):
 # Function to display keyword stats in a table
 def display_keyword_stats(filtered_results, keywords):
     stats_data = []
-    
+
     for keyword in keywords:
-        keyword_count = 0
-        pages_found = []
-        
+        pages_found = []  # List of pages where the keyword appears
+        total_occurrences = 0  # Total occurrences of the keyword
+
         # Iterate over the filtered results (which contains sentences with surrounding context)
         for page, matches in filtered_results.items():
+            page_occurrences = 0  # Track occurrences on this page
             for match in matches:
                 # Count the occurrences of the keyword in the sentence
                 occurrences_in_sentence = match['sentence'].lower().count(keyword.lower())
-                keyword_count += occurrences_in_sentence
-                
-                # Track on which pages the keyword is found
-                if occurrences_in_sentence > 0 and page not in pages_found:
-                    pages_found.append(page)
+                page_occurrences += occurrences_in_sentence  # Add to page's total occurrences
 
-        stats_data.append([keyword, keyword_count, pages_found])
+            # If the keyword was found on this page, add it to the pages_found list
+            if page_occurrences > 0:
+                pages_found.append(page)
+                total_occurrences += page_occurrences  # Add to total occurrences
+
+        stats_data.append([keyword, total_occurrences, pages_found])  # Store the total occurrences and pages
 
     stats_df = pd.DataFrame(stats_data, columns=["Keyword", "Occurrences", "Pages"])
     st.write("### Keyword Statistics")
     st.dataframe(stats_df)
+
 
 
 # Function to display PDF pages and highlight the keyword occurrences
