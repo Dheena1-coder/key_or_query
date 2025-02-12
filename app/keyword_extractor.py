@@ -190,10 +190,10 @@ def run():
     
 
     sfdr_keywords_dict = process_keywords_to_dict(sfdr_df, 'sfdr')
-    asset_keywords_dict = process_keywords_to_dict(asset_df, 'assets')
-    gowtham_keywords_dict = process_keywords_to_dict(gowtham_df,'Granular segments')
-    diversity_keywords_dict = process_keywords_to_dict(diversity_df,'Diversity')
-    surya_keywords_dict = process_keywords_to_dict(surya_df,'Annual update')
+    asset_keywords_dict = process_keywords_to_dict(asset_df, 'physical assets')
+    gowtham_keywords_dict = process_keywords_to_dict(gowtham_df,'Company data')
+    diversity_keywords_dict = process_keywords_to_dict(diversity_df,'ENS Diversity')
+    surya_keywords_dict = process_keywords_to_dict(surya_df,'Governance annual update')
 
     # Create dropdown for team selection
     team_type = st.selectbox("Select Team", ["sfdr", "physical assets",'Company data','ENS Diversity','Governance annual update'])
