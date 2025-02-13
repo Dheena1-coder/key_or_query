@@ -12,20 +12,22 @@ st.sidebar.markdown("---")  # This adds a horizontal line to separate sections
 st.sidebar.markdown("### About")
 about_link = st.sidebar.button("Go to About Page")  # Button to trigger the About page
 
-# Conditional logic for different pages
-if page == "Keyword Based Extractor":
-    st.title("Keyword Based Extractor")
-    # Import and run the PDF extraction page
-    import keyword_extractor
-    keyword_extractor.run()
-
-elif page == "Query Based Extractor":
-    st.title("Query Based Extractor")
-    # Import and run the web extraction page
-    import query_extractor
-    query_extractor.run()
-
-# If the "About" button is clicked, run the about page
-elif about_link:
+# If the "About" button is clicked, show the About page content only and stop any further rendering
+if about_link:
+    # Import and run the About page content
     import about
     about.run()
+
+else:
+    # Conditional logic for different pages if "About" is not clicked
+    if page == "Keyword Based Extractor":
+        st.title("Keyword Based Extractor")
+        # Import and run the PDF extraction page
+        import keyword_extractor
+        keyword_extractor.run()
+
+    elif page == "Query Based Extractor":
+        st.title("Query Based Extractor")
+        # Import and run the web extraction page
+        import query_extractor
+        query_extractor.run()
