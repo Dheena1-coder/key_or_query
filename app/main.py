@@ -8,7 +8,7 @@ page = st.sidebar.selectbox("Select a page",
                             ["Keyword Based Extractor", "Query Based Extractor"])
 
 # Add a gap after the page select box
-st.sidebar.markdown("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>", unsafe_allow_html=True)  # This adds extra vertical space
+st.sidebar.markdown("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>", unsafe_allow_html=True)  # This adds extra vertical space
 # Add a "Contact" or "About" section at the bottom of the sidebar using a divider
 st.sidebar.markdown("---")  # This adds a horizontal line to separate sections
 st.sidebar.markdown("### About")
