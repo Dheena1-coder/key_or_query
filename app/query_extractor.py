@@ -30,7 +30,7 @@ def process_keywords_to_dict(df, team_type):
             indicator = row['SFDR Indicator']  
         elif team_type == 'physical assets': 
             indicator = row['Asset/Report Type']
-        elif team_type == 'Company data': 
+        elif team_type == 'Company data - Granular segments': 
             indicator = row['Granular Indicator']
         elif team_type == 'ENS Diversity': 
             indicator = row['Div_Indicators'] 
@@ -184,7 +184,7 @@ def run():
 
     sfdr_keywords_dict = process_keywords_to_dict(sfdr_df, 'sfdr')
     asset_keywords_dict = process_keywords_to_dict(asset_df, 'physical assets')
-    gowtham_keywords_dict = process_keywords_to_dict(gowtham_df,'Company data')
+    gowtham_keywords_dict = process_keywords_to_dict(gowtham_df,'Company data - Granular segments')
     diversity_keywords_dict = process_keywords_to_dict(diversity_df,'ENS Diversity')
     surya_keywords_dict = process_keywords_to_dict(surya_df,'Governance annual update')
 
@@ -196,7 +196,7 @@ def run():
         indicators = list(sfdr_keywords_dict.keys())
     elif team_type == "physical assets":
         indicators = list(asset_keywords_dict.keys())
-    elif team_type == "Company data":
+    elif team_type == "Company data - Granular segments":
         indicators = list(gowtham_keywords_dict.keys())
     elif team_type == "ENS Diversity":    
         indicators = list(diversity_keywords_dict.keys())
@@ -216,7 +216,7 @@ def run():
         datapoint_names = list(sfdr_keywords_dict[indicator].keys())
     elif team_type == "physical assets":
         datapoint_names = list(asset_keywords_dict[indicator].keys())
-    elif team_type == "Company data":
+    elif team_type == "Company data - Granular segments":
         datapoint_names = list(gowtham_keywords_dict[indicator].keys())
     elif team_type == "ENS Diversity":    
         datapoint_names = list(diversity_keywords_dict[indicator].keys())
@@ -235,10 +235,20 @@ def run():
     if team_type == "sfdr":
         for datapoint in datapoint_name:
             selected_keywords.extend(sfdr_keywords_dict[indicator].get(datapoint, []))
-    else:
+    elif team_type == "physical assets":
         for datapoint in datapoint_name:
             selected_keywords.extend(asset_keywords_dict[indicator].get(datapoint, []))
-
+    elif team_type == "Company data - Granular segments":
+        for datapoint in datapoint_name:
+            selected_keywords.extend(gowtham_keywords_dict[indicator].get(datapoint, []))
+    elif team_type == "ENS Diversity":
+        for datapoint in datapoint_name:
+            selected_keywords.extend(diversity_keywords_dict[indicator].get(datapoint, []))                
+    elif team_type == "Governance annual update":
+        for datapoint in datapoint_name:
+            selected_keywords.extend(surya_keywords_dict[indicator].get(datapoint, []))
+    else:
+        st.write("**Keywords is not available**")
     selected_keywords = list(set(selected_keywords))  # Remove duplicates
     
     # Add any extra keywords entered in the text area
