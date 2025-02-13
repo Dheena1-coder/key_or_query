@@ -88,7 +88,7 @@ def extract_pdf_content(pdf_file):
     
     return text_chunks, doc  # Return text with word positions and the document object for highlighting
 
-def create_embeddings(text_chunks, batch_size=8):
+def create_embeddings(text_chunks, batch_size=4):
     """
     Create embeddings for the text chunks in batches using concurrency.
     """
