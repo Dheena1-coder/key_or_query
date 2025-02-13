@@ -26,6 +26,6 @@ elif page == "Query Based Extractor":
     query_extractor.run()
 
 # If the "About" button is clicked, run the about page
-if about_link:
+elif about_link:
     import about
     about.run()
