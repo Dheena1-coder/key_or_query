@@ -88,32 +88,12 @@ def extract_pdf_content(pdf_file):
     
     return text_chunks, doc  # Return text with word positions and the document object for highlighting
 
-def create_embeddings(text_chunks, batch_size=4):
-    """
-    Create embeddings for the text chunks in batches using concurrency.
-    """
-    # Split the text chunks into smaller batches
+# Function to create embeddings
+def create_embeddings(text_chunks):
     text_only = [chunk[0] for chunk in text_chunks]  # Extract sentences (text only) from tuples
-    num_batches = len(text_only) // batch_size + (1 if len(text_only) % batch_size != 0 else 0)
-    
-    # Function to generate embeddings for a batch
-    def embed_batch(batch):
-        return model.encode(batch)
-    
-    # Using ThreadPoolExecutor for concurrency
-    embeddings = []
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        # Create a list of future objects for batches
-        futures = [executor.submit(embed_batch, text_only[i*batch_size:(i+1)*batch_size]) for i in range(num_batches)]
-        
-        # Collect the embeddings from each batch
-        for future in concurrent.futures.as_completed(futures):
-            embeddings.append(future.result())
-    
-    # Concatenate the list of embeddings into a single numpy array
-    embeddings = np.vstack(embeddings)
-    
+    embeddings = model.encode(text_only)
     return embeddings
+
 # Function to build vector database
 def build_vector_database(embeddings):
     index = faiss.IndexFlatL2(embeddings.shape[1])
